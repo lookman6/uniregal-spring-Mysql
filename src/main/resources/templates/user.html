@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>Uniregal-Utilisateurs</title>
+    <link rel="shortcut icon" href="../static/img/icon.png" th:href="@{img/icon.png}" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet"  href="../static/css/style.css" th:href="@{css/style.css}">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/3a7064bac8.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <input type="checkbox" id="nav-toggle">
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2><span class="las la-coffee"></span> <span>Buvette</span></h2>
+        </div>
+        <!--Section-de-Dashboard-->
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a th:href="@{/index}" ><span class="las la-home"></span>
+                        <span>Dashboard</span></a>
+                </li>
+                <li>
+                    <a th:href="@{/categories}"><span class="lab la-wpforms"></span>
+                        <span>Catégories</span></a>
+                </li>
+                <li>
+                    <a th:href="@{/products}"><span class="las la-hamburger"></span>
+                        <span>Produits</span></a>
+                </li>
+                <li>
+                    <a th:href="@{/users}" class="active"><span class="las la-user"></span>
+                        <span>Utilisateurs</span></a>
+                </li>
+                <li>
+                    <a th:href="@{/logout}"><span class="las la-sign-out-alt"></span>
+                        <span>Déconnexion</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h2>
+                <label for="nav-toggle">
+                    <span class="las la-bars"></span>
+                </label> Utilisateurs
+            </h2>
+
+            <div class="user-wrapper">
+                <img th:src="@{'/img/photos/' + ${#authentication.getPrincipal().getUsername()} +'.jpg'}" width="40px" height="40px" alt="">
+                <div>
+                    <h5>Username</h5>
+                    <small th:text="${#authentication.getPrincipal().getUsername()}">Gest</small>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="cards">
+
+                <div class="card-single">
+                    <div>
+                        <h1></h1>
+                        <span>Gestion des utilisateurs</span>
+                    </div>
+                    <div>
+                        <span class="las la-users"></span>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div>
+                        <h1></h1>
+                        <span>Gestion des catégories</span>
+                    </div>
+                    <div>
+                        <span class="lab la-wpforms"></span>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div>
+                        <h1></h1>
+                        <span>Gestion des produits</span>
+                    </div>
+                    <div>
+                        <span class="las la-hamburger"></span>
+                    </div>
+                </div>
+
+                <div class="card-single">
+                    <div>
+                        <h1>UniRegal</h1>
+                        <span>2021/2022</span>
+                    </div>
+                    <div>
+                        <span class="las la-coffee"></span>
+                    </div>
+                </div>
+            </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Liste des utilisateurs</h3>
+                        </div>
+
+                        <!--Contenu-->
+                        <div class = "container">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <button type="button" class="samaj-btn" data-bs-toggle="modal" data-bs-target="#addModal">Nouveau utilisateur</button>
+                                    <!--pop up script ADD-->
+                                    <div class="modal" id="addModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Nouveau utilisateur</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form th:action="@{/users/addNew}" method="post">
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Prenom : <span style="color:#ff0000"> *</span></label>
+                                                            <input type="text" class="form-control" name="firstname" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Nom : <span style="color:#ff0000"> *</span></label>
+                                                            <input type="text" class="form-control" name="lastname" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Username : <span style="color:#ff0000"> *</span></label>
+                                                            <input type="text" class="form-control" name="username" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Phone : </label>
+                                                            <input type="text" class="form-control" name="phone" >
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Email : </label>
+                                                            <input type="email" class="form-control" name="email" >
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Mot de passe : <span style="color:#ff0000"> *</span></label>
+                                                            <input type="text" class="form-control" name="password" required>
+                                                        </div>
+                                                        <button type="submit" class="samaj-btn">Soumettre</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="samaj-btn" data-bs-dismiss="modal">Annuler</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--pop up script ADD-->
+                                    <!--pop up script EDIT-->
+                                    <div class="modal" id="editModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Modifier utilisateur</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form th:action="@{/users/update}" method="put">
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Id :</label>
+                                                            <input type="text" class="form-control" id="idEdit" name="id" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Prenom : <span style="color:#ff0000"> *</span></label>
+                                                            <input type="text" class="form-control" id="firstnameEdit" name="firstname" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Nom : <span style="color:#ff0000"> *</span></label>
+                                                            <input type="text" class="form-control" id="lastnameEdit" name="lastname" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Username : <span style="color:#ff0000"> *</span></label>
+                                                            <input type="text" class="form-control" id="usernameEdit" name="username" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Phone : </label>
+                                                            <input type="text" class="form-control" id="phoneEdit" name="phone" >
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Email : </label>
+                                                            <input type="email" class="form-control" id="emailEdit" name="email" >
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Mot de passe : <span style="color:#ff0000"> *</span></label>
+                                                            <input type="text" class="form-control" id="passwordEdit" name="password" required>
+                                                        </div>
+                                                        <button type="submit" class="samaj-btn">Soumettre</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="samaj-btn" data-bs-dismiss="modal">Annuler</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--pop up script EDIT-->
+                                    <!--pop up script DETAILS-->
+                                    <div class="modal" id="detailsModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Détails de l'utilisateur</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form th:action="@{/users/update}" method="put">
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Id :</label>
+                                                            <input type="text" class="form-control" id="idDetails" name="id" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Prenom :</label>
+                                                            <input type="text" class="form-control" id="firstnameDetails" name="name" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Nom :</label>
+                                                            <input type="text" class="form-control" id="lastnameDetails" name="name" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Username :</label>
+                                                            <input type="text" class="form-control" id="usernameDetails" name="username" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Phone : </label>
+                                                            <input type="text" class="form-control" id="phoneDetails" name="phone" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Email : </label>
+                                                            <input type="email" class="form-control" id="emailDetails" name="email" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Mot de passe : </label>
+                                                            <input type="text" class="form-control" id="passwordDetails" name="password" readonly>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="samaj-btn" data-bs-dismiss="modal">Annuler</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--pop up script DETAILS-->
+                                    <!--pop up script DELETE-->
+                                    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Confirmer la suppression</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Êtes-vous sûr de vouloir supprimer cet enregistrement?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a class="samaj-btn" id="deleteConfirmButton" href="">Supprimer</a>
+                                                    <button type="button" class="samaj-btn" data-bs-dismiss="modal">Annuler</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--pop up script DELETE-->
+                                    <!--pop up script PHOTO-->
+                                    <div class="modal" id="photoModal" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Photo de l'ulilisateur</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img id="userPhoto" src="" width="95%" height="95%">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="samaj-btn" data-bs-dismiss="modal">Sortir</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--pop up script PHOTO-->
+                                    <table width="100%">
+                                        <thead>
+                                        <tr>
+                                            <td>Photo</td>
+                                            <td>Id</td>
+                                            <td>Nom complet</td>
+                                            <td>Action</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="user:${users}">
+                                            <td>
+                                                <a id="photoButton" th:href="@{'/img/photos/users/' + ${user.id} +'.jpg'}">
+                                                    <img th:src="@{'/img/photos/users/' + ${user.id} +'.jpg'}" width="50" height="50">
+                                                </a>
+                                            </td>
+                                            <td th:text="${user.id}"></td>
+                                            <td th:text="${user.firstname} + ' ' + ${user.lastname}"></td>
+                                            <td><div class="btn-group">
+                                                <a class="samaja-btn" th:href="@{/users/findById/(id=${user.id})}" id="editButton"><i class="far fa-edit"></i></a>
+                                                <a class="samaja-btn" th:href="@{/users/findById/(id=${user.id})}" id="detailsButton"><i class="far fa-list-alt"></i></a>
+                                                <a class="samaja-btn" th:href="@{/users/delete/(id=${user.id})}" id="deleteButton"><i class="far fa-times-circle"></i></a>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+        </main>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="../static/js/app.js" th:src="@{js/app.js}"></script>
+    <script src="../static/js/user.js" th:src="@{js/user.js}"></script>
+    <script>
+        $('table #detailsButton').on('click',function(event){
+            event.preventDefault();
+            var href= $(this).attr('href');
+            $.get(href, function(user, status){
+                $('#idDetails').val(user.id);
+                $('#firstnameDetails').val(user.firstname);
+                $('#lastnameDetails').val(user.lastname);
+                $('#usernameDetails').val(user.username);
+                $('#phoneDetails').val(user.phone);
+                $('#emailDetails').val(user.email);
+                $('#passwordDetails').val(user.password);
+            });
+            $('#detailsModal').modal('show');
+        });
+        $('table #photoButton').on('click',function(event) {
+            event.preventDefault();
+            var href = $(this).attr('href');
+            $('#photoModal #userPhoto').attr('src', href);
+            $('#photoModal').modal('show');
+        });
+        $('table #deleteButton').on('click',function(event) {
+            event.preventDefault();
+            var href = $(this).attr('href');
+            $('#deleteConfirmButton').attr('href', href);
+            $('#deleteModal').modal('show');
+        });
+    </script>
+</body>
+
+</html>
